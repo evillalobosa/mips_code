@@ -18,31 +18,25 @@
 	equal:    .asciiz " = "
 	arrow:    .asciiz "   -> "
 	space:    .asciiz "\n"
-	suma:     .word 0
 
 	array:    .space 20	# 5 integer * 4 bytes
-	v1:       .word 2
-	v2:       .word 4
-	v3:       .word 6
-	v4:       .word 8
-	v5:       .word 10
 
 .text
 .globl main
 	main:
 		la $a0, msg
 		li $v0, 4
-		syscall		# print message(msg)
+		syscall			# print message(msg)
 
 		# save array values
-		addi $s0, $zero, 2	# FIXME
-		addi $s1, $zero, 4
-		addi $s2, $zero, 6
-		addi $s3, $zero, 8
-		addi $s4, $zero, 10
-		
+		addi $s0, $zero, 2	# v[0]
+		addi $s1, $zero, 4	# v[1]
+		addi $s2, $zero, 6	# v[2]
+		addi $s3, $zero, 8	# v[3]
+		addi $s4, $zero, 10	# v[4]
+
 		addi $t0, $zero, 0		# clean t0
-		
+
 		sw $s0, array($t0)
 			addi $t0, $t0, 4	# next 4 bytes word
 		sw $s1, array($t0)
@@ -53,10 +47,12 @@
 			addi $t0, $t0, 4	# next 4 bytes word
 		sw $s4, array($t0)
 
-		# enter in the while loop
+		# initiating variables for the loop
 		addi $t0, $zero, 0		# t0 = 0 (index)
 		addi $t1, $zero, 0		# t1 = 0 (suma)
 		addi $t6, $zero, 0		# t6 = 0 (v[i])
+
+		# enter in the while loop
 		while:
 			beq $t0, 20, exit	# if index reaches last element, go to 'exit' tag
 
@@ -90,13 +86,15 @@
 
 
 	printI:
+		# function to print an element of array
+
 		la $a0, p1
 		li $v0, 4
 		syscall			# v[
 
 		li $v0, 1
 		add $a0, $t0, $zero
-		syscall			# print i
+		syscall			# print index
 
 		la $a0, p2
 		li $v0, 4
