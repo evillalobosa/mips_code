@@ -1,4 +1,6 @@
-# print values of array in a WHILE loop
+# Prints the sum and the values of array in a WHILE loop
+#
+# C code:
 # int v[5] = { 2,4,6,8,10 };
 # int suma = 0;
 # void main() {
@@ -8,6 +10,8 @@
 # 		i = i+1;
 # 	}
 # }
+#
+# NOTE: for printing array values, uncomment line 65
 
 .data
 	msg:      .asciiz "Starting \n"
@@ -28,7 +32,7 @@
 		li $v0, 4
 		syscall			# print message(msg)
 
-		# save array values
+		# set values for array
 		addi $s0, $zero, 2	# v[0]
 		addi $s1, $zero, 4	# v[1]
 		addi $s2, $zero, 6	# v[2]
@@ -37,6 +41,7 @@
 
 		addi $t0, $zero, 0		# clean t0
 
+		# store values in array
 		sw $s0, array($t0)
 			addi $t0, $t0, 4	# next 4 bytes word
 		sw $s1, array($t0)
@@ -94,7 +99,7 @@
 
 		li $v0, 1
 		add $a0, $t0, $zero
-		syscall			# print index
+		syscall			# print index (t0)
 
 		la $a0, p2
 		li $v0, 4
