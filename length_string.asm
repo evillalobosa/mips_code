@@ -44,12 +44,12 @@
 		li $v0, 4
 		syscall		# print is
 
-		la $a0, string	# load the string to calculate in a0
-		jal strLength	# call strLenght procedure to calculate lenght of 'string' string
+		la $a0, string	# load the string in a0 to calculate the length
+		jal strLength	# call strLength procedure
 
 		li $v0, 1
 		move $a0, $t0
-		syscall		# print int of lenght saved in t1
+		syscall		# print int of length saved in t1
 
 		la $a0, msg2
 		li $v0, 4
@@ -61,7 +61,7 @@
 
 
 	strLength:
-		# function to get lenght of string
+		# Function to get length of a string
 		li $t0, 0			# initialize the count to zero
 
 		loop:
